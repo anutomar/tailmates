@@ -1,0 +1,296 @@
+<!-- This is user-signup.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailmates: Sign Up</title>
+    <link rel="icon" href="./assets/paw.png" type="image/x-icon" />
+    <link href="output.css" rel="stylesheet" />
+    <link href="loader.css" rel="stylesheet" />
+    <style>
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-10deg);
+            }
+
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-wiggle {
+            animation: wiggle 0.6s ease-in-out;
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .strength-meter {
+            height: 8px;
+            width: 100%;
+            border-radius: 8px;
+            background-color: #eee;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak {
+            background-color: #e74c3c;
+            width: 25%;
+        }
+
+        .strength-medium {
+            background-color: #f39c12;
+            width: 50%;
+        }
+
+        .strength-strong {
+            background-color: #2ecc71;
+            width: 75%;
+        }
+
+        .strength-very-strong {
+            background-color: #228b22;
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-show {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .modal-btn {
+            transition: all 0.3s ease;
+        }
+
+        .all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(115, 82, 64, 0.3);
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+
+        /* Added background color to input fields */
+        input,
+        textarea,
+        select {
+            background-color: #f9f6f0;
+            border: 2px solid #d7c2a6;
+            padding: 10px;
+            border-radius: 10px;
+            transition: border-color 0.3s ease, outline-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: 2px solid #735240;
+            border-color: #d7c2a6;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .radio-label {
+            font-size: 1.1rem;
+            /* Reduced font size */
+            font-weight: 600;
+            /* Reduced boldness */
+            color: #735240;
+        }
+
+        .sign-up-as-text {
+            font-size: 1.3rem;
+            /* Reduced font size */
+            font-weight: 600;
+            /* Reduced boldness */
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        /* Removed border from radio button on focus */
+        input[type="radio"]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body class="font-Poppins bg-[#fef9ea] grid min-h-screen place-content-center px-4 relative z-0">
+
+    <!-- Loader -->
+    <div id="loader" class="loader z-50">
+        <div class="paw"></div>
+        <div class="heart"></div>
+    </div>
+
+    <!-- Signup Content -->
+    <div id="mainContent" class="hidden">
+        <div
+            class="bg-white shadow-lg shadow-[#bea384] p-6 md:p-10 rounded-3xl max-w-xl w-full mx-auto space-y-6 text-[#735240]">
+            <h2 class="text-2xl md:text-3xl font-semibold text-center">Create Your Tailmates Account</h2>
+
+            <form id="signupForm" class="space-y-4" novalidate>
+                <input type="hidden" name="role" id="roleInput" value="owner" />
+                <div class="relative">
+                    <input type="text" placeholder="First Name" name="firstName" class="w-full focus:outline-[#735240]"
+                        required />
+                    <p id="firstNameError" class="error-message hidden">First name is required.</p>
+                </div>
+
+                <div class="relative">
+                    <input type="text" placeholder="Last Name" name="lastName" class="w-full focus:outline-[#735240]"
+                        required />
+                    <p id="lastNameError" class="error-message hidden">Last name is required.</p>
+                </div>
+
+                <div class="relative">
+                    <input type="email" placeholder="Email" name="email" class="w-full focus:outline-[#735240]"
+                        required />
+                    <p id="emailError" class="error-message hidden">Email is required.</p>
+                </div>
+
+                <!-- Phone Number Section -->
+                <div class="relative mt-2">
+                    <div class="flex gap-4">
+                        <select name="countryCode"
+                            class="w-full focus:outline-[#735240] bg-[#f9f6f0] border-2 border-[#d7c2a6] rounded-2xl p-2">
+                            <option value="+61">🇦🇺 +61</option>
+                            <option value="+880">🇧🇩 +880</option>
+                            <option value="+55">🇧🇷 +55</option>
+                            <option value="+86">🇨🇳 +86</option>
+                            <option value="+20">🇪🇬 +20</option>
+                            <option value="+33">🇫🇷 +33</option>
+                            <option value="+49">🇩🇪 +49</option>
+                            <option value="+91" selected>🇮🇳 +91</option>
+                            <option value="+39">🇮🇹 +39</option>
+                            <option value="+81">🇯🇵 +81</option>
+                            <option value="+60">🇲🇾 +60</option>
+                            <option value="+52">🇲🇽 +52</option>
+                            <option value="+234">🇳🇬 +234</option>
+                            <option value="+92">🇵🇰 +92</option>
+                            <option value="+63">🇵🇭 +63</option>
+                            <option value="+7">🇷🇺 +7</option>
+                            <option value="+966">🇸🇦 +966</option>
+                            <option value="+65">🇸🇬 +65</option>
+                            <option value="+27">🇿🇦 +27</option>
+                            <option value="+82">🇰🇷 +82</option>
+                            <option value="+34">🇪🇸 +34</option>
+                            <option value="+46">🇸🇪 +46</option>
+                            <option value="+41">🇨🇭 +41</option>
+                            <option value="+66">🇹🇭 +66</option>
+                            <option value="+90">🇹🇷 +90</option>
+                            <option value="+971">🇦🇪 +971</option>
+                            <option value="+44">🇬🇧 +44</option>
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+84">🇻🇳 +84</option>
+                        </select>
+                        <input type="text" name="phoneNumber" placeholder="Phone Number" maxlength="15"
+                            class="w-full focus:outline-[#735240]" required />
+                    </div>
+                    <p id="phoneError" class="error-message hidden">Phone number is required.</p>
+                </div>
+
+
+                <div class="relative group">
+                    <input id="password" type="password" name="password" placeholder="Password" required
+                        class="peer w-full focus:outline-[#735240] transition-all duration-300" />
+                    <img id="pawIcon" src="./assets/paw.png" alt="paw icon"
+                        class="absolute right-3 top-3 h-6 w-6 pointer-events-none transition-all duration-300 hover:cursor-pointer" />
+                    <p id="passwordError" class="hidden text-sm text-red-500 mt-1 animate-fade text-left font-medium">
+                        Password must be 8+ characters, with a capital letter, number, and special character.
+                    </p>
+                    <div class="mt-2 space-y-1">
+                        <div id="strengthMeter" class="strength-meter"></div>
+                        <p id="strengthText" class="text-sm font-medium"></p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password"
+                        required class="w-full focus:outline-[#735240]" />
+                    <p id="confirmPasswordError" class="error-message hidden">Passwords do not match.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="relative">
+                        <input type="text" name="city" placeholder="City" class="w-full focus:outline-[#735240]"
+                            required />
+                        <p id="cityError" class="error-message hidden">City is required.</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="relative">
+                        <input type="text" name="zipcode" placeholder="Zip Code" class="w-full focus:outline-[#735240]"
+                            required />
+                        <p id="zipCodeError" class="error-message hidden">Zip Code is required.</p>
+                    </div>
+                </div>
+
+                <!-- Sign Up As Section -->
+                <div class="space-y-2">
+                    <p class="sign-up-as-text">Sign Up As</p>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="role" value="Pet Owner" checked /> Pet Owner
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="role" value="Caretaker" /> Caretaker
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="bg-[#735240] text-white w-full py-3 rounded-3xl text-lg font-medium transition duration-300 hover:opacity-90 hover:cursor-pointer all-btn">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="text-center text-sm mt-4">
+                Already have an account? <a href="user-login.html"
+                    class="text-[#735240] font-medium hover:cursor-pointer">Log In</a>
+            </p>
+
+        </div>
+    </div>
+
+    <script src="loader.js"></script>
+    <script src="user-signup.js">
+    </script>
+</body>
+
+</html>

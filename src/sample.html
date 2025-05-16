@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailmates: Home</title>
+    <link rel="icon" href="./assets/paw.png" type="image/x-icon" />
+    <link href="output.css" rel="stylesheet" />
+    <link href="loader.css" rel="stylesheet" />
+    <style>
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-10deg);
+            }
+
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-wiggle {
+            animation: wiggle 0.4s ease-in-out;
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(115, 82, 64, 0.3);
+            cursor: pointer;
+        }
+
+        .strength-bar {
+            height: 6px;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="bg-[#fef9ea] shadow-md shadow-[#bea384] px-6 py-4 flex items-center justify-between rounded-b-2xl">
+        <!-- Logo Placeholder -->
+        <div class="flex items-center">
+            <img src="./assets/logo (2).svg" alt="Tailmates Logo" class="h-10 w-auto" />
+        </div>
+
+        <!-- Nav Links -->
+        <ul class="hidden md:flex gap-8 text-[#735240] text-lg font-medium">
+            <li><a href="#" class="hover:text-[#a06c4f] transition">Home</a></li>
+            <li><a href="#" class="hover:text-[#a06c4f] transition">About</a></li>
+            <li><a href="#" class="hover:text-[#a06c4f] transition">Services</a></li>
+            <li><a href="#" class="hover:text-[#a06c4f] transition">Contact</a></li>
+        </ul>
+
+        <!-- Profile Button -->
+        <div>
+            <a href="#"
+                class="bg-[#735240] text-white px-5 py-2 rounded-3xl text-sm font-medium shadow-sm hover:shadow-md transition all-btn">
+                Profile
+            </a>
+        </div>
+    </nav>
+
+</body>
+
+</html>

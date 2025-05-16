@@ -1,0 +1,206 @@
+<!-- This is owner-profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailmates: Pet Profile</title>
+    <link rel="icon" href="./assets/paw.png" type="image/x-icon" />
+    <link href="output.css" rel="stylesheet" />
+    <link href="loader.css" rel="stylesheet" />
+
+    <style>
+        .input-row label {
+            color: #735240;
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 500px) {
+            .input-row label {
+                font-size: 0.9rem;
+            }
+
+            .input-row input,
+            .input-row select,
+            .input-row textarea {
+                padding: 6px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .input-row {
+                margin: 0.8rem 0px;
+            }
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .input-row input,
+        .input-row select,
+        .input-row textarea {
+            width: 100%;
+            border: 2px solid #d7c2a6;
+            padding: 10px;
+            border-radius: 0.75rem;
+            background-color: #fef9ea;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .input-row input:focus,
+        .input-row select:focus,
+        .input-row textarea:focus {
+            border-color: #d7c2a6;
+            background-color: #fff8e1;
+            outline: 2px solid #735240;
+            border-width: 2px;
+        }
+
+        .input-row input[type="radio"]:focus {
+            outline: none;
+        }
+
+        .all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(115, 82, 64, 0.3);
+            cursor: pointer;
+        }
+
+        .toast {
+            animation: fadeIn 0.5s ease-in-out;
+            background-color: transparent;
+            color: red;
+            padding: 4px 0;
+            font-size: 0.8rem;
+            display: none;
+            position: relative;
+            width: auto;
+            max-width: 100%;
+        }
+
+        @media (max-width:500px) {
+            .toast {
+                font-size: 0.6rem;
+                padding: 2px 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="font-Poppins bg-[#fef9ea] grid min-h-screen place-content-center px-4">
+    <div id="loader" class="loader z-50">
+        <div class="paw"></div>
+        <div class="heart"></div>
+    </div>
+
+    <div id="mainContent" class="hidden">
+        <div
+            class="shadow-lg shadow-[#bea384] p-6 md:p-10 rounded-3xl items-center gap-8 max-w-3xl bg-white mx-auto w-full">
+            <div class="flex flex-col items-center text-center w-full">
+                <h2 class="text-2xl md:text-3xl sm:text-xl font-semibold text-[#735240]">Tell Us More About
+                    Your Pet !
+                </h2>
+
+                <form id="petProfileForm" class="space-y-6 mt-6 w-full" novalidate>
+                    <div class="input-row">
+                        <label for="petName" class="w-1/3 text-left">Pet's Name</label>
+                        <div class="w-full">
+                            <input type="text" id="petName" placeholder="Pet's Name"
+                                class="w-full p-3 rounded-xl border border-[#735240] bg-[#fef9ea] focus:outline-none"
+                                name="petName" required />
+                            <div id="toastPetName" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="petBreed" class="w-1/3 text-left">Pet's Breed</label>
+                        <div class="w-full">
+                            <input type="text" id="petBreed" placeholder="Pet's Breed"
+                                class="w-full p-3 rounded-xl border border-[#735240] bg-[#fef9ea] focus:outline-none"
+                                name="petBreed" required />
+                            <div id="toastPetBreed" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="petDetails" class="w-1/3 text-left">Pet's Allergies</label>
+                        <div class="w-full">
+                            <input type="text" id="petDetails" placeholder="Allergies (if any), Preferences..."
+                                class="w-full p-3 rounded-xl border border-[#735240] bg-[#fef9ea] focus:outline-none"
+                                name="petDetails" />
+                            <div id="toastPetDetails" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label class="w-1/3 text-left">Open to hire a caretaker?</label>
+                        <div class="w-full">
+                            <div class="flex">
+                                <label class="flex items-center text-[#735240] font-medium mx-10 hover:cursor-pointer">
+                                    <input type="radio" name="hireCaretaker" value="yes" checked
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;Yes
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="flex items-center text-[#735240] font-medium mx-10 hover:cursor-pointer">
+                                    <input type="radio" name="hireCaretaker" value="no"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;No
+                                </label>
+                            </div>
+                            <div id="toastHireCaretaker" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="careType" class="w-1/3 text-left">Care Type</label>
+                        <div class="w-full">
+                            <select name="careType" id="careType" required
+                                class="w-full p-3 rounded-xl border border-[#735240] bg-[#fef9ea] focus:outline-none text-[#735240] all-btn ">
+                                <option value="Contractual" selected>Contractual Care</option>
+                                <option value="Daily">Daily Care</option>
+                            </select>
+                            <div id="toastCareType" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="petBio" class="w-1/3 text-left">Short Bio</label>
+                        <div class="w-full">
+                            <textarea id="petBio" placeholder="Short Bio about your pet"
+                                class="w-full p-3 rounded-xl border border-[#735240] bg-[#fef9ea] focus:outline-none"
+                                name="petBio" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="profilePic" class="w-1/3 text-left">Profile Picture</label>
+                        <div class="w-full">
+                            <input type="file" id="profilePic" name="profilePic"
+                                class="w-full p-3 rounded-xl border border-[#735240] bg-[#fef9ea] focus:outline-none" />
+                            <div id="toastProfilePic" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="bg-[#735240] text-white p-3 px-6 rounded-3xl text-lg font-medium transition duration-300 all-btn">
+                        Save Pet Profile
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="owner-profile.js"></script>
+    <script src="loader.js"></script>
+
+</body>
+
+</html>

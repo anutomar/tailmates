@@ -1,0 +1,340 @@
+<!-- This is caretaker-profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailmates: Caretaker Profile</title>
+    <link rel="icon" href="./assets/paw.png" type="image/x-icon" />
+    <link href="output.css" rel="stylesheet" />
+    <link href="loader.css" rel="stylesheet" />
+
+    <style>
+        .input-row label {
+            color: #735240;
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 8rem;
+            align-items: flex-start;
+        }
+
+        .input-col {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+        }
+
+        .input-col input,
+        .input-col select,
+        .input-col textarea {
+            width: 100%;
+            border: 2px solid #d7c2a6;
+            padding: 10px;
+            border-radius: 0.75rem;
+            background-color: #fef9ea;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            font-size: 1rem;
+            color: #735240;
+        }
+
+        .input-col input:focus,
+        .input-col select:focus,
+        .input-col textarea:focus {
+            background-color: #fff8e1;
+            outline: 2px solid #735240;
+            border-color: #d7c2a6;
+            border-width: 2px;
+        }
+
+        /* Prevent radio buttons from having the same focus border behavior */
+        .input-row input[type="radio"]:focus {
+            outline: none;
+        }
+
+        .input-col input::placeholder,
+        .input-col textarea::placeholder {
+            color: #a78d7b;
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .input-row {
+                gap: 5rem;
+            }
+
+            .input-col {
+                width: 65%;
+            }
+
+            .input-col input,
+            .input-col select,
+            .input-col textarea {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+
+            .input-row label {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .input-row {
+                gap: 3rem;
+            }
+
+            .input-col {
+                width: 67%;
+            }
+
+            .input-col input,
+            .input-col select,
+            .input-col textarea {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .input-row label {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-row {
+                gap: 1.5rem;
+            }
+
+            .input-col {
+                width: 70%;
+            }
+
+            .input-col input,
+            .input-col select,
+            .input-col textarea {
+                padding: 6px;
+                font-size: 0.85rem;
+            }
+
+            .input-row label {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .input-row {
+                gap: 1rem;
+            }
+
+            .input-col {
+                width: 72%;
+            }
+
+            .input-col input,
+            .input-col select,
+            .input-col textarea {
+                padding: 5px;
+                font-size: 0.8rem;
+            }
+
+            .input-row label {
+                font-size: 0.85rem;
+            }
+        }
+
+
+        .all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(115, 82, 64, 0.3);
+            cursor: pointer;
+        }
+
+        .toast {
+            animation: fadeIn 0.5s ease-in-out;
+            background-color: transparent;
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 4px;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+
+<body class="font-Poppins bg-[#fef9ea] grid min-h-screen place-content-center px-4 relative z-0">
+    <div id="loader" class="loader z-50">
+        <div class="paw"></div>
+        <div class="heart"></div>
+    </div>
+
+    <div id="mainContent" class="hidden">
+
+        <div
+            class="flex flex-col shadow-lg shadow-[#bea384] p-6 md:pl-20 rounded-3xl items-center gap-8 max-w-2xl bg-white mx-auto min-w-screen">
+            <div class="flex flex-col items-center text-center w-full">
+                <h2 class="text-2xl md:text-3xl font-semibold text-[#735240]">Tell Us More About Yourself !</h2>
+
+                <form id="caretakerProfileForm" class="space-y-6 mt-6 p-6" novalidate>
+
+                    <!-- Open to be a Caretaker? -->
+                    <div class="input-row">
+                        <label class="w-1/3 text-left">Open to be a caretaker?</label>
+                        <div class="input-col">
+                            <div class="flex">
+                                <label class="flex items-center text-[#735240] font-medium mr-10 hover:cursor-pointer">
+                                    <input checked type="radio" name="available" value="yes"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />
+                                    &nbsp;
+                                    Yes
+                                </label>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                                <label class="flex items-center text-[#735240] font-medium hover:cursor-pointer">
+                                    <input type="radio" name="available" value="no"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />
+                                    &nbsp;
+                                    No
+                                </label>
+                            </div>
+                            <div id="toastCaretakerAvailability" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <!-- Care Type -->
+                    <div class="input-row">
+                        <label for="careType" class="w-1/3 text-left">Care Type</label>
+                        <div class="input-col">
+                            <select name="careType" id="careType" class="hover:cursor-pointer">
+                                <option selected value="Contractual" class="hover:cursor-pointer">Contractual Care
+                                </option>
+                                <option value="Daily" class="hover:cursor-pointer">Daily Care</option>
+                            </select>
+                            <div id="toastCareType" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="input-row">
+                        <label for="experience" class="w-1/3 text-left">Experience</label>
+                        <div class="input-col">
+                            <input type="number" placeholder="in years (0.5, 1, 2 yrs.)" name="experience" required
+                                step="0.5" min="0" />
+                            <div id="toastCaretakerExperience" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div class="input-row">
+                        <div class="flex flex-col w-full">
+                            <label class="text-left mb-2 pl-1">
+                                Please check all services that you are willing to offer:
+                            </label>
+                            <div class="flex flex-col text-[#735240]">
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="services" value="Daily Walks"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Daily
+                                    Walks</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="services" value="Overnight Stay"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Overnight
+                                    Stay</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="services" value="Feeding"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Feeding</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="services" value="Vet Visit"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Vet
+                                    Visit</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="services" value="Training"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Training</label>
+                                <div id="toastCaretakerServices" class="toast pl-1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pet Types -->
+                    <div class="input-row">
+                        <div class="flex flex-col w-full">
+                            <label class="text-left mb-2 pl-1">
+                                Please check the preferred pet types:
+                            </label>
+                            <div class="flex flex-col text-[#735240]">
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="petTypes" value="Dogs"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Dogs</label>
+                                <label class="flex items-center my-1" hover:cursor-pointer><input type="checkbox"
+                                        name="petTypes" value="Cats"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Cats</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="petTypes" value="Birds"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Birds</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="petTypes" value="Rabbits"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Rabbits</label>
+                                <label class="flex items-center my-1 hover:cursor-pointer"><input type="checkbox"
+                                        name="petTypes" value="Others"
+                                        class="accent-[#735240] mr-2 hover:cursor-pointer" />&nbsp;&nbsp;Others</label>
+                                <div id="toastPreferredPetTypes" class="toast pl-1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Short Bio -->
+                    <div class="input-row">
+                        <label for="caretakerBio" class="w-1/3 text-left">Short Bio</label>
+                        <div class="input-col">
+                            <textarea id="caretakerBio"
+                                placeholder="Short Bio about yourself, Mention Certifications (if any)"
+                                name="caretakerBio" required></textarea>
+                            <div id="toastCaretakerBio" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <!-- Charges -->
+                    <div class="input-row">
+                        <label for="charges" class="whitespace-nowrap text-left w-1/3 text-[#735240]">Charges (Per
+                            Hour)</label>
+                        <div class="input-col">
+                            <div class="flex items-center gap-2">
+                                <select name="currency" class="hover:cursor-pointer">
+                                    <option selected value="INR" class="hover:cursor-pointer">₹</option>
+                                    <option value="USD" class="hover:cursor-pointer">$</option>
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="number" placeholder="Charges" name="charges" required min="0.0"
+                                    step="0.50" />
+                            </div>
+                            <div id="toastCharges" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="input-row">
+                        <label for="profilePic" class="w-1/3 text-left">Profile Picture</label>
+                        <div class="input-col hover:cursor-pointer">
+                            <input type="file" id="profilePic" name="profilePic" class="hover:cursor-pointer" />
+                            <div id="toastProfilePic" class="toast"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="bg-[#735240] text-white p-3 px-6 rounded-3xl text-lg font-medium transition duration-300 all-btn">
+                        Save Caretaker Profile
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="loader.js"></script>
+    <script src="caretaker-profile.js"></script>
+</body>
+
+</html>
